@@ -1,0 +1,709 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - EduVerse</title>
+    <link rel="stylesheet" href="student-dashboard.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Top Navigation -->
+    <header class="top-nav" role="banner">
+        <div class="nav-left">
+            <div class="logo">
+                <i class="fas fa-graduation-cap"></i>
+                <span>EduVerse</span>
+            </div>
+            <h1>Student Dashboard</h1>
+        </div>
+        
+        <div class="nav-center">
+            <div class="search-container">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Search lectures, assignments, quizzes..." aria-label="Search content">
+            </div>
+        </div>
+        
+        <div class="nav-right">
+            <button class="notification-btn" aria-label="Notifications">
+                <i class="fas fa-bell"></i>
+                <span class="notification-badge">3</span>
+            </button>
+            
+            <div class="avatar-menu">
+                <button class="avatar-btn" aria-label="User menu">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Student" class="avatar" id="studentAvatar">
+                    <span class="avatar-name" id="studentName">Student</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="dropdown-menu">
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-user"></i>
+                        Profile
+                    </a>
+                    <a href="#" class="dropdown-item">
+                        <i class="fas fa-cog"></i>
+                        Settings
+                    </a>
+                    <hr class="dropdown-divider">
+                    <a href="index.html" class="dropdown-item">
+                        <i class="fas fa-sign-out-alt"></i>
+                        Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar" role="navigation" aria-label="Main navigation">
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-page="dashboard">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span>Dashboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="lectures">
+                    <i class="fas fa-video"></i>
+                    <span>Lectures</span>
+                </a>
+                <a href="#" class="nav-item" data-page="assignments">
+                    <i class="fas fa-file-alt"></i>
+                    <span>Assignments</span>
+                </a>
+                <a href="#" class="nav-item" data-page="quizzes">
+                    <i class="fas fa-question-circle"></i>
+                    <span>Quizzes</span>
+                </a>
+                <a href="#" class="nav-item" data-page="games">
+                    <i class="fas fa-gamepad"></i>
+                    <span>Games</span>
+                </a>
+                <a href="#" class="nav-item" data-page="achievements">
+                    <i class="fas fa-trophy"></i>
+                    <span>XP & Achievements</span>
+                </a>
+                <a href="#" class="nav-item" data-page="leaderboard">
+                    <i class="fas fa-medal"></i>
+                    <span>Leaderboard</span>
+                </a>
+                <a href="#" class="nav-item" data-page="messages">
+                    <i class="fas fa-comments"></i>
+                    <span>Messages</span>
+                </a>
+                <a href="#" class="nav-item" data-page="settings">
+                    <i class="fas fa-cog"></i>
+                    <span>Settings</span>
+                </a>
+                <a href="#" class="nav-item" data-page="help">
+                    <i class="fas fa-question"></i>
+                    <span>Help</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content" role="main">
+            <!-- Quick Overview Cards -->
+            <section class="overview-section" aria-labelledby="overview-title">
+                <h2 id="overview-title" class="section-title">Quick Overview</h2>
+                <div class="overview-grid">
+                    <div class="overview-card" data-tooltip="Last updated: Today 3:45 PM">
+                        <div class="card-header">
+                            <div class="card-icon xp-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="card-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +12%
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-value">3,420</div>
+                            <div class="card-label">XP Points</div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 90%"></div>
+                            </div>
+                            <div class="progress-text">380 XP to Level 6</div>
+                        </div>
+                    </div>
+
+                    <div class="overview-card" data-tooltip="This week's completion rate">
+                        <div class="card-header">
+                            <div class="card-icon assignments-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="card-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +5%
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-value">78%</div>
+                            <div class="card-label">Assignments Completed</div>
+                            <div class="card-subtitle">7 of 9 this week</div>
+                        </div>
+                    </div>
+
+                    <div class="overview-card" data-tooltip="Average of last 5 quizzes">
+                        <div class="card-header">
+                            <div class="card-icon quiz-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <div class="card-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +3%
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-value">86%</div>
+                            <div class="card-label">Quiz Average</div>
+                            <div class="card-subtitle">Last 5 quizzes</div>
+                        </div>
+                    </div>
+
+                    <div class="overview-card" data-tooltip="This month's attendance">
+                        <div class="card-header">
+                            <div class="card-icon attendance-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="card-trend positive">
+                                <i class="fas fa-arrow-up"></i>
+                                +2%
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <div class="card-value">92%</div>
+                            <div class="card-label">Attendance</div>
+                            <div class="card-subtitle">23 of 25 classes</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Performance Chart -->
+            <section class="chart-section" aria-labelledby="performance-title">
+                <div class="section-header">
+                    <h2 id="performance-title" class="section-title">Performance Trends</h2>
+                    <div class="chart-toggles">
+                        <button class="toggle-btn active" data-metric="xp">XP</button>
+                        <button class="toggle-btn" data-metric="tasks">Tasks</button>
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <canvas id="performanceChart" aria-label="Performance chart showing last 7 days"></canvas>
+                </div>
+            </section>
+
+            <!-- Upcoming Deadlines -->
+            <section class="deadlines-section" aria-labelledby="deadlines-title">
+                <h2 id="deadlines-title" class="section-title">Upcoming Deadlines</h2>
+                <div class="deadlines-scroll-container">
+                    <div class="deadlines-horizontal-grid">
+                        <div class="deadline-card-square priority-high">
+                            <div class="deadline-card-content">
+                                <div class="deadline-icon urgent">
+                                    <i class="fas fa-exclamation-triangle"></i>
+                                </div>
+                                <span class="subject-tag cs">Computer Science</span>
+                                <h3 class="deadline-title"><strong>DSA Worksheet #3</strong></h3>
+                                <div class="deadline-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Today, 5:00 PM</strong></span>
+                                </div>
+                                <div class="deadline-status">Not Started</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-play"></i>
+                                Attempt Now
+                            </button>
+                        </div>
+
+                        <div class="deadline-card-square priority-medium">
+                            <div class="deadline-card-content">
+                                <div class="deadline-icon quiz">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <span class="subject-tag physics">Physics</span>
+                                <h3 class="deadline-title"><strong>Kinematics Quiz</strong></h3>
+                                <div class="deadline-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Today, 11:00 AM</strong></span>
+                                </div>
+                                <div class="deadline-status">6/10 Questions</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-arrow-right"></i>
+                                Attempt Now
+                            </button>
+                        </div>
+
+                        <div class="deadline-card-square priority-low">
+                            <div class="deadline-card-content">
+                                <div class="deadline-icon assignment">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <span class="subject-tag math">Mathematics</span>
+                                <h3 class="deadline-title"><strong>Integration Practice</strong></h3>
+                                <div class="deadline-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Tomorrow, 6:00 PM</strong></span>
+                                </div>
+                                <div class="deadline-status completed">Completed</div>
+                            </div>
+                            <button class="attempt-btn completed" disabled>
+                                <i class="fas fa-check"></i>
+                                Submitted
+                            </button>
+                        </div>
+
+                        <div class="deadline-card-square priority-low">
+                            <div class="deadline-card-content">
+                                <div class="deadline-icon project">
+                                    <i class="fas fa-project-diagram"></i>
+                                </div>
+                                <span class="subject-tag english">English</span>
+                                <h3 class="deadline-title"><strong>Essay: Modern Literature</strong></h3>
+                                <div class="deadline-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Sep 7, 11:59 PM</strong></span>
+                                </div>
+                                <div class="deadline-status">Outline Complete</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-edit"></i>
+                                Attempt Now
+                            </button>
+                        </div>
+
+                        <div class="deadline-card-square priority-medium">
+                            <div class="deadline-card-content">
+                                <div class="deadline-icon lab">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                                <span class="subject-tag chemistry">Chemistry</span>
+                                <h3 class="deadline-title"><strong>Lab Report: Titration</strong></h3>
+                                <div class="deadline-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Sep 6, 2:00 PM</strong></span>
+                                </div>
+                                <div class="deadline-status">Almost Done</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-microscope"></i>
+                                Attempt Now
+                            </button>
+                        </div>
+
+                        <div class="deadline-card-square priority-low">
+                            <div class="deadline-card-content">
+                                <div class="deadline-icon presentation">
+                                    <i class="fas fa-presentation"></i>
+                                </div>
+                                <span class="subject-tag history">History</span>
+                                <h3 class="deadline-title"><strong>Group Presentation</strong></h3>
+                                <div class="deadline-time">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Sep 8, 10:00 AM</strong></span>
+                                </div>
+                                <div class="deadline-status">Research Phase</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-users"></i>
+                                Attempt Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommended Actions -->
+            <section class="recommendations-section" aria-labelledby="recommendations-title">
+                <h2 id="recommendations-title" class="section-title">Recommended Next Actions</h2>
+                <div class="recommendations-scroll-container">
+                    <div class="recommendations-horizontal-grid">
+                        <div class="recommendation-card-square urgent">
+                            <div class="recommendation-card-content">
+                                <div class="rec-icon urgent">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <span class="rec-priority-tag high">High Priority</span>
+                                <h3 class="rec-title"><strong>Finish DSA Worksheet #3</strong></h3>
+                                <div class="rec-details">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Due today 5:00 PM</strong></span>
+                                </div>
+                                <div class="rec-status">Urgent</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-play"></i>
+                                Start Now
+                            </button>
+                        </div>
+
+                        <div class="recommendation-card-square">
+                            <div class="recommendation-card-content">
+                                <div class="rec-icon quiz">
+                                    <i class="fas fa-question-circle"></i>
+                                </div>
+                                <span class="rec-priority-tag medium">Medium Priority</span>
+                                <h3 class="rec-title"><strong>Revise Physics Quiz</strong></h3>
+                                <div class="rec-details">
+                                    <i class="fas fa-clock"></i>
+                                    <span><strong>Starts at 11:00 AM</strong></span>
+                                </div>
+                                <div class="rec-status">Preparation</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-book"></i>
+                                Review Notes
+                            </button>
+                        </div>
+
+                        <div class="recommendation-card-square">
+                            <div class="recommendation-card-content">
+                                <div class="rec-icon video">
+                                    <i class="fas fa-play-circle"></i>
+                                </div>
+                                <span class="rec-priority-tag low">Quick Win</span>
+                                <h3 class="rec-title"><strong>Watch Algorithms Recap</strong></h3>
+                                <div class="rec-details">
+                                    <i class="fas fa-trophy"></i>
+                                    <span><strong>Boost XP (10 min)</strong></span>
+                                </div>
+                                <div class="rec-status">Optional</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-play"></i>
+                                Play Video
+                            </button>
+                        </div>
+
+                        <div class="recommendation-card-square">
+                            <div class="recommendation-card-content">
+                                <div class="rec-icon study">
+                                    <i class="fas fa-brain"></i>
+                                </div>
+                                <span class="rec-priority-tag medium">Study Session</span>
+                                <h3 class="rec-title"><strong>Math Practice Problems</strong></h3>
+                                <div class="rec-details">
+                                    <i class="fas fa-calculator"></i>
+                                    <span><strong>30 min session</strong></span>
+                                </div>
+                                <div class="rec-status">Recommended</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-pencil-alt"></i>
+                                Start Practice
+                            </button>
+                        </div>
+
+                        <div class="recommendation-card-square">
+                            <div class="recommendation-card-content">
+                                <div class="rec-icon lab">
+                                    <i class="fas fa-flask"></i>
+                                </div>
+                                <span class="rec-priority-tag low">Extra Credit</span>
+                                <h3 class="rec-title"><strong>Chemistry Lab Simulation</strong></h3>
+                                <div class="rec-details">
+                                    <i class="fas fa-microscope"></i>
+                                    <span><strong>Virtual Experiment</strong></span>
+                                </div>
+                                <div class="rec-status">Bonus XP</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-vial"></i>
+                                Start Lab
+                            </button>
+                        </div>
+
+                        <div class="recommendation-card-square">
+                            <div class="recommendation-card-content">
+                                <div class="rec-icon reading">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <span class="rec-priority-tag medium">Reading</span>
+                                <h3 class="rec-title"><strong>History Chapter Review</strong></h3>
+                                <div class="rec-details">
+                                    <i class="fas fa-bookmark"></i>
+                                    <span><strong>Chapter 12-14</strong></span>
+                                </div>
+                                <div class="rec-status">Catch Up</div>
+                            </div>
+                            <button class="attempt-btn">
+                                <i class="fas fa-glasses"></i>
+                                Read Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar" role="complementary" aria-label="Today's information">
+            <!-- Study Streak Widget -->
+            <section class="streak-widget-enhanced" aria-labelledby="streak-title">
+                <div class="streak-header">
+                    <h3 id="streak-title" class="widget-title">🔥 Study Streak Champion</h3>
+                    <div class="streak-rank-badge">#3 in Class</div>
+                </div>
+                <div class="streak-main">
+                    <div class="streak-flame-large">
+                        <i class="fas fa-fire"></i>
+                        <div class="flame-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                    </div>
+                    <div class="streak-stats">
+                        <div class="streak-number">
+                            <span class="streak-count-large">6</span>
+                            <span class="streak-label">Days</span>
+                        </div>
+                        <div class="streak-comparison">
+                            <div class="streak-vs">
+                                <span class="vs-label">vs Top Streaker</span>
+                                <div class="vs-bars">
+                                    <div class="my-bar" style="width: 60%">
+                                        <span>You: 6</span>
+                                    </div>
+                                    <div class="top-bar" style="width: 100%">
+                                        <span>Isha: 10</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="streak-progress-enhanced">
+                    <div class="progress-info">
+                        <span class="progress-text">4 more days to beat Isha!</span>
+                        <span class="xp-bonus">+50 XP bonus at 10 days</span>
+                    </div>
+                    <div class="streak-bar-enhanced">
+                        <div class="streak-fill-enhanced" style="width: 60%"></div>
+                        <div class="milestone-markers">
+                            <div class="marker active" data-day="1">1</div>
+                            <div class="marker active" data-day="3">3</div>
+                            <div class="marker active" data-day="5">5</div>
+                            <div class="marker current" data-day="7">7</div>
+                            <div class="marker" data-day="10">10</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Daily Quote -->
+            <section class="quote-widget" aria-labelledby="quote-title">
+                <div class="quote-content">
+                    <div class="quote-icon">
+                        <i class="fas fa-quote-left"></i>
+                    </div>
+                    <blockquote class="daily-quote" id="dailyQuote">
+                        "Success is not final, failure is not fatal: it is the courage to continue that counts."
+                    </blockquote>
+                    <div class="quote-author">— Winston Churchill</div>
+                    <div class="quote-date">Quote of the Day</div>
+                </div>
+            </section>
+
+            <!-- Today's Schedule -->
+            <section class="schedule-widget" aria-labelledby="schedule-title">
+                <h3 id="schedule-title" class="widget-title">Today's Schedule (IST)</h3>
+                <div class="timeline-compact" id="todayTimeline">
+                    <div class="timeline-item-compact lecture completed">
+                        <div class="timeline-time-compact">09:30</div>
+                        <div class="timeline-content-compact">
+                            <span class="event-type-compact lecture">
+                                <i class="fas fa-video"></i>
+                            </span>
+                            <div class="event-info-compact">
+                                <h4><strong>Math: Calculus II</strong></h4>
+                                <span class="event-duration-compact">1h</span>
+                            </div>
+                            <i class="fas fa-check completion-check-compact"></i>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-compact quiz upcoming">
+                        <div class="timeline-time-compact">11:00</div>
+                        <div class="timeline-content-compact">
+                            <span class="event-type-compact quiz">
+                                <i class="fas fa-question-circle"></i>
+                            </span>
+                            <div class="event-info-compact">
+                                <h4><strong>Physics — Kinematics</strong></h4>
+                                <span class="event-duration-compact">20 min</span>
+                            </div>
+                            <button class="join-btn-compact">Start</button>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-compact assignment deadline">
+                        <div class="timeline-time-compact">17:00</div>
+                        <div class="timeline-content-compact">
+                            <span class="event-type-compact assignment">
+                                <i class="fas fa-clock"></i>
+                            </span>
+                            <div class="event-info-compact">
+                                <h4><strong>CS: DSA Worksheet #3</strong></h4>
+                                <span class="event-duration-compact">Deadline</span>
+                            </div>
+                            <button class="join-btn-compact">Open</button>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-compact study">
+                        <div class="timeline-time-compact">19:30</div>
+                        <div class="timeline-content-compact">
+                            <span class="event-type-compact study">
+                                <i class="fas fa-book"></i>
+                            </span>
+                            <div class="event-info-compact">
+                                <h4><strong>English Essay Draft</strong></h4>
+                                <span class="event-duration-compact">1h</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Mini Calendar -->
+            <section class="calendar-widget" aria-labelledby="calendar-title">
+                <h3 id="calendar-title" class="widget-title">August 2025</h3>
+                <div class="mini-calendar">
+                    <div class="calendar-header">
+                        <button class="calendar-nav" aria-label="Previous month">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span class="calendar-month">August 2025</span>
+                        <button class="calendar-nav" aria-label="Next month">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-day-header">S</div>
+                        <div class="calendar-day-header">M</div>
+                        <div class="calendar-day-header">T</div>
+                        <div class="calendar-day-header">W</div>
+                        <div class="calendar-day-header">T</div>
+                        <div class="calendar-day-header">F</div>
+                        <div class="calendar-day-header">S</div>
+                        
+                        <!-- Calendar days will be generated by JavaScript -->
+                        <div class="calendar-day inactive">28</div>
+                        <div class="calendar-day inactive">29</div>
+                        <div class="calendar-day inactive">30</div>
+                        <div class="calendar-day inactive">31</div>
+                        <div class="calendar-day">1</div>
+                        <div class="calendar-day">2</div>
+                        <div class="calendar-day">3</div>
+                        <div class="calendar-day">4</div>
+                        <div class="calendar-day">5</div>
+                        <div class="calendar-day">6</div>
+                        <div class="calendar-day">7</div>
+                        <div class="calendar-day">8</div>
+                        <div class="calendar-day">9</div>
+                        <div class="calendar-day">10</div>
+                        <div class="calendar-day has-event">11</div>
+                        <div class="calendar-day">12</div>
+                        <div class="calendar-day">13</div>
+                        <div class="calendar-day">14</div>
+                        <div class="calendar-day has-event">15</div>
+                        <div class="calendar-day">16</div>
+                        <div class="calendar-day">17</div>
+                        <div class="calendar-day">18</div>
+                        <div class="calendar-day">19</div>
+                        <div class="calendar-day">20</div>
+                        <div class="calendar-day">21</div>
+                        <div class="calendar-day">22</div>
+                        <div class="calendar-day">23</div>
+                        <div class="calendar-day">24</div>
+                        <div class="calendar-day">25</div>
+                        <div class="calendar-day">26</div>
+                        <div class="calendar-day">27</div>
+                        <div class="calendar-day">28</div>
+                        <div class="calendar-day">29</div>
+                        <div class="calendar-day">30</div>
+                        <div class="calendar-day today">31</div>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- Mini Leaderboard -->
+            <section class="leaderboard-widget" aria-labelledby="leaderboard-title">
+                <h3 id="leaderboard-title" class="widget-title">Weekly Leaderboard</h3>
+                <div class="leaderboard-list">
+                    <div class="leaderboard-item rank-1">
+                        <div class="rank">1</div>
+                        <div class="user-info">
+                            <img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=32&h=32&fit=crop&crop=face" alt="Isha" class="user-avatar">
+                            <span class="user-name">Isha</span>
+                        </div>
+                        <div class="user-xp">740 XP</div>
+                    </div>
+
+                    <div class="leaderboard-item rank-2">
+                        <div class="rank">2</div>
+                        <div class="user-info">
+                            <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=32&h=32&fit=crop&crop=face" alt="Rohan" class="user-avatar">
+                            <span class="user-name">Rohan</span>
+                        </div>
+                        <div class="user-xp">690 XP</div>
+                    </div>
+
+                    <div class="leaderboard-item rank-3 current-user">
+                        <div class="rank">3</div>
+                        <div class="user-info">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" alt="Student" class="user-avatar" id="leaderboardAvatar">
+                            <span class="user-name" id="leaderboardName">Student (You)</span>
+                        </div>
+                        <div class="user-xp" id="leaderboardXP">660 XP</div>
+                    </div>
+
+                    <div class="leaderboard-item">
+                        <div class="rank">4</div>
+                        <div class="user-info">
+                            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=32&h=32&fit=crop&crop=face" alt="Meera" class="user-avatar">
+                            <span class="user-name">Meera</span>
+                        </div>
+                        <div class="user-xp">640 XP</div>
+                    </div>
+
+                    <div class="leaderboard-item">
+                        <div class="rank">5</div>
+                        <div class="user-info">
+                            <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=32&h=32&fit=crop&crop=face" alt="Kabir" class="user-avatar">
+                            <span class="user-name">Kabir</span>
+                        </div>
+                        <div class="user-xp">620 XP</div>
+                    </div>
+                </div>
+                <button class="view-full-btn">View Full Leaderboard</button>
+            </section>
+        </aside>
+    </div>
+
+    <!-- Mobile Menu Toggle -->
+    <button class="mobile-menu-toggle" aria-label="Toggle navigation menu">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Loading Skeletons (hidden by default) -->
+    <div class="skeleton-loader" style="display: none;">
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+        <div class="skeleton-card"></div>
+    </div>
+
+    <script src="student-dashboard.js"></script>
+</body>
+</html>
